@@ -1,32 +1,38 @@
 from abc import ABC, abstractmethod
 import os
+import json
+import requests
 
 
 class APIWorker(ABC):
     API_SJ = os.getenv('API_SuperJob')
     HH_VACANCIES = 'https://api.hh.ru/vacancies'
+    SJ_VACANCIES = 'https://api.superjob.ru/2.0/vacancies'
+
+    headers_sj = {'X-Api-App-Id': API_SJ}
 
     @abstractmethod
-    def get_object(self):
+    def get_vacancies(self):
         """
-        method gets object works with API
-        """
-        pass
-
-    @abstractmethod
-    def get_vacations(self):
-        """
-        method gets list of vacations
+        method returns list of vacancies
         """
         pass
 
 
-class APIHeadHunter(APIWorker):
-    def __init__(self):
-        pass
+class HeadHunterAPI(APIWorker):
+    def __init__(self, name):
+        self.name = name
 
-    def get_object(self):
-        pass
+    def get_vacancies(self) -> dict:
+        request = requests.get(self.HH_VACANCIES)
+        return request.json()
 
-    def get_vacations(self):
-        pass
+
+class SuperJobAPI(APIWorker):
+    def __init__(self, name):
+        self.name = name
+
+    def get_vacancies(self) -> dict:
+        request = requests.get(self.SJ_VACANCIES, headers=self.headers_sj)
+        return request.json()
+
