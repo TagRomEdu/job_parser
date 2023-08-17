@@ -20,8 +20,6 @@ class APIWorker(ABC):
 
 
 class HeadHunterAPI(APIWorker):
-    def __init__(self, name):
-        self.name = name
 
     def get_vacancies(self) -> dict:
         request = requests.get(self.HH_VACANCIES)
@@ -29,10 +27,7 @@ class HeadHunterAPI(APIWorker):
 
 
 class SuperJobAPI(APIWorker):
-    def __init__(self, name):
-        self.name = name
 
     def get_vacancies(self) -> dict:
         request = requests.get(self.SJ_VACANCIES, headers=self.headers_sj)
         return request.json()
-
