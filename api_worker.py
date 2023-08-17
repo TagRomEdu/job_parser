@@ -12,7 +12,7 @@ class APIWorker(ABC):
     headers_sj = {'X-Api-App-Id': API_SJ}
 
     @abstractmethod
-    def get_vacancies(self):
+    def get_vacancies(self, text):
         """
         method returns list of vacancies
         """
@@ -21,13 +21,14 @@ class APIWorker(ABC):
 
 class HeadHunterAPI(APIWorker):
 
-    def get_vacancies(self) -> dict:
-        request = requests.get(self.HH_VACANCIES)
+    def get_vacancies(self, text: str) -> dict:
+        request = requests.get(self.HH_VACANCIES + f"?text={text.lower()}")
         return request.json()
 
 
 class SuperJobAPI(APIWorker):
 
-    def get_vacancies(self) -> dict:
-        request = requests.get(self.SJ_VACANCIES, headers=self.headers_sj)
+    def get_vacancies(self, text: str) -> dict:
+        req_str = self.SJ_VACANCIES + f"?keyword={text.lower()}"
+        request = requests.get(req_str, headers=self.headers_sj)
         return request.json()
