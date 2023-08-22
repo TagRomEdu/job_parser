@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 import os
-import json
 import requests
 
 
@@ -22,13 +21,13 @@ class APIWorker(ABC):
 class HeadHunterAPI(APIWorker):
 
     def get_vacancies(self, text: str) -> dict:
-        request = requests.get(self.HH_VACANCIES + f"?text={text.lower()}")
-        return request.json()
+        request = requests.get(self.HH_VACANCIES + f"?text={text.lower()}").json()
+        return request
 
 
 class SuperJobAPI(APIWorker):
 
     def get_vacancies(self, text: str) -> dict:
         req_str = self.SJ_VACANCIES + f"?keyword={text.lower()}"
-        request = requests.get(req_str, headers=self.headers_sj)
-        return request.json()
+        request = requests.get(req_str, headers=self.headers_sj).json()
+        return request
