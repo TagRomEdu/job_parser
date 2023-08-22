@@ -1,8 +1,8 @@
 class Vacancy:
-    def __init__(self, post, salary, link, requirements, location):
-        self.post = post
+    def __init__(self, name, salary, link, requirements, location):
+        self.name = name
         self.salary = salary
-        self.link = link
+        self.url = url
         self.requirements = requirements
         self.location = location
 
