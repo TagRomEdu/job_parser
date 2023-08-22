@@ -60,4 +60,10 @@ class JSONSaver(FileSaver):
         with open('list_of_vacancies.json', encoding='utf-8') as file:
             data = json.load(file)
 
+        for i, vac in enumerate(data):
+            if vac["name"] == vacancy:
+                del data[i]
 
+        with open('list_of_vacancies.json', 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=4)
+            return None
