@@ -20,7 +20,9 @@ def sort_vac(vacancies_lst, word_lst):
 
 
 def job_selection(vacancy_lst):
-
+    """
+    Sorting by keywords and adding sorting by salary
+    """
     json_f_1 = JSONSaver()
 
     for i in range(len(vacancy_lst)):

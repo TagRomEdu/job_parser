@@ -5,7 +5,10 @@ from src.utils import job_selection
 
 def user_interaction():
 
-    '''json_f_1 = JSONSaver()'''
+    """
+    func print list of vacancies sorted by user's wishes
+    """
+
     platforms = ["1 - HeadHunter", "2 - SuperJob"]
 
     choice = int(input(f"Выбери платформы, с которых хочешь получить вакансии: {', '.join(platforms)}\n"))
