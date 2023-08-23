@@ -52,8 +52,17 @@ class JSONSaver(FileSaver):
     def get_vacancies_by_salary(self, salary):
         with open('list_of_vacancies.json', encoding='utf-8') as file:
             data = json.load(file)
-        chosen_by_salary = [vac_dict for vac_dict in data
-                            if isinstance(vac_dict["salary"], int) and vac_dict["salary"] >= salary]
+        chosen_by_salary = []
+        for vac_dict in data:
+            if isinstance(vac_dict["salary"], int):
+                if vac_dict["salary"] >= salary:
+                    chosen_by_salary.append(vac_dict)
+            else:
+                try:
+                    if vac_dict["salary"]["from"] >= salary:
+                        chosen_by_salary.append(vac_dict)
+                except TypeError:
+                    pass
         return chosen_by_salary
 
     def delete_vacancy(self, vacancy):
